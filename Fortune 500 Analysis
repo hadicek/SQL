@@ -57,10 +57,10 @@ VALUES
     ('Company KK', 'Healthcare', 150.2, 3400, 0, 16, 8, 5.3);
 
 
-#For this project, I used SQL to query the Fortune 500 Companies database to get information about XXX.
+#For this project, I used SQL to query the Fortune 500 Companies database to get information about the companies and their employee benefits.
 
 
---View companies that have at least 12 weeks of maternity leave for employees
+--View companies that have at least 12 weeks of maternity leave for employees.
 SELECT company_name
 , maternity_leave_weeks
 FROM fortune_companies
@@ -68,7 +68,7 @@ WHERE maternity_leave_weeks >= 12
 ORDER BY maternity_leave_weeks DESC
 ;
 
---View which industries have the most revenue on average
+--View which industries have the most revenue on average.
 SELECT industry
 , industry
 , AVG(revenue) AS average_revenue
@@ -78,7 +78,7 @@ ORDER BY average_revenue DESC
 ;
 
 
---View each company's maternity leave as months
+--View each company's maternity leave as months.
 SELECT company_name
 , CASE
 WHEN maternity_leave_weeks >= 16 THEN "4 months+"
@@ -91,14 +91,14 @@ FROM fortune_companies
 ORDER BY maternity_leave_weeks DESC
 ;
 
---View which industries have the most paid days off on average
+--View which industries have the most paid days off on average.
 SELECT industry
 , AVG(paid_time_off_days) AS paid_vacation
 FROM fortune_companies
 HAVING paid_vacation >= 18
 ;
 
---View which companies have the most paid days off, maternity leave, and provide healthcare benefits
+--View which companies have the most paid days off, maternity leave, and provide healthcare benefits.
 SELECT company_name
 , paid_time_off_days AS paid_vacation
 , CASE WHEN maternity_leave_weeks >= 12 THEN "3 months+"
