@@ -1,0 +1,61 @@
+#In this SQL, I'm querying a database with multiple tables in it to quantify statistics about customer and order data. 
+
+# 1. Number of unique orders placed in January.
+SELECT COUNT(distinct orderid)
+FROM JanSales
+WHERE length(orderid) = 6
+AND orderid <> 'Order ID'
+;
+
+# 2. Number of unique orders in January that were for an iPhone.
+SELECT COUNT(distinct orderid)
+FROM JanSales
+WHERE length(orderid) = 6
+AND orderid <> 'Order ID'
+AND Product = 'iPhone'
+;
+
+# 3. List of customer account numbers for all the orders that were placed in February.
+SELECT distinct customers.acctnum
+FROM customers
+INNER JOIN FebSales
+ON customers.order_ID = FebSales.orderID
+WHERE length(orderid) = 6
+AND orderid <> 'Order ID'
+;
+
+# 4. Cheapest product in January and its price.
+SELECT distinct product, price
+FROM JanSales
+ORDER BY price ASC LIMIT 1
+;
+
+# 5. Total revenue for each product sold in January.
+SELECT Product
+, SUM(quantity)*price as Revenue
+FROM BIT_DB.JanSales
+WHERE length(orderid) = 6
+AND orderid <> 'Order ID'
+GROUP BY Product
+;
+
+# 6. Find products sold at 48 Lincoln St, Seattle, WA 98101. Identify how many of each were sold and the total revenue.
+SELECT Product
+, SUM(quantity)
+,SUM(quantity)*price as Revenue
+FROM BIT_DB.FebSales
+WHERE location = '548 Lincoln St, Seattle, WA 98101'
+GROUP BY Product
+;
+
+# 7. Count of customers who ordered more than 2 products at a time in February. Average amount spent by those customers.
+SELECT 
+COUNT(distinct customers.acctnum)
+, AVG(FebSales.price*FebSales.Quantity)
+FROM FebSales
+LEFT JOIN customers
+ON FebSales.orderID = customers.order_id
+WHERE FebSales.Quantity > 2
+AND length(orderid) = 6
+AND orderid <> 'Order ID'
+;
