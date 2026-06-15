@@ -59,3 +59,15 @@ WHERE FebSales.Quantity > 2
 AND length(orderid) = 6
 AND orderid <> 'Order ID'
 ;
+
+# 8. Retrieves employee IDs that start with '14', have a single character after '14', and ends with '9'.
+SELECT employee_ID
+FROM employees
+WHERE employee_ID LIKE '14_9'
+;
+
+# 9. Retrieves order IDs that start with '16', have a single character after ‘16’, followed by '0', and any number of characters in the last position.
+SELECT orderID
+FROM BIT_DB.MarSales
+WHERE orderID LIKE '16_0%'
+;
